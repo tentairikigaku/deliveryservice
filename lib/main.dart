@@ -1,5 +1,5 @@
 // Flutter imports:
-import 'package:delivery_system/views/new_order_page.dart';
+import 'package:delivery_system/views/homes/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
+        brightness: Brightness.dark,
         appBarTheme: const AppBarTheme(
           brightness: Brightness.dark,
           backgroundColor: Colors.black,
@@ -21,17 +22,17 @@ class MyApp extends StatelessWidget {
           shadowColor: Colors.white,
         ),
       ),
-      home: HomePage(),
+      home: RoutePage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
+class RoutePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _RoutePageState createState() => _RoutePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RoutePageState extends State<RoutePage> {
   Widget navButton({required String title, dynamic nav}) {
     return SizedBox(
       width: 500,
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onPressed: () async {
                   await Navigator.of(context).push<dynamic>(
-                    OrderListPage.route(),
+                    HomePage.route(),
                   );
                 },
                 child: const Text('新規注文'),

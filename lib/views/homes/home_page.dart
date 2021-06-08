@@ -1,28 +1,54 @@
+import 'package:delivery_system/views/order_list_page.dart';
 import 'package:flutter/material.dart';
 
-class OrderListPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => OrderListPage());
+    return MaterialPageRoute<dynamic>(builder: (_) => HomePage());
   }
 
   @override
-  _OrderListPageState createState() => _OrderListPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _OrderListPageState extends State<OrderListPage> {
+class _HomePageState extends State<HomePage> {
   var _selectedIndex = 0;
+  final List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    Text(
+      'Index 1',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    OrderListPage(),
+    Text(
+      'Index 3',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    Text(
+      'Index 4',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text('新規注文'),
       ),
       body: Row(
         children: [
           NavigationRail(
-            backgroundColor: Colors.grey,
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
@@ -52,7 +78,15 @@ class _OrderListPageState extends State<OrderListPage> {
               ),
             ],
             selectedIndex: _selectedIndex,
-          )
+          ),
+          const VerticalDivider(
+            thickness: 1,
+            width: 1,
+            color: Colors.black,
+          ),
+          Expanded(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
         ],
       ),
     );

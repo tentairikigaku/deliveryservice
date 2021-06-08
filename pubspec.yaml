@@ -10,6 +10,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.17.0
+  hooks_riverpod: ^0.14.0+4
   import_sorter: ^4.6.0
 
 dev_dependencies:
