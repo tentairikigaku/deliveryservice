@@ -1,0 +1,23 @@
+name: delivery_system
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  import_sorter: ^4.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic_mono: any
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
