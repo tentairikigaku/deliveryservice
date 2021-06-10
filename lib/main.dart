@@ -1,6 +1,8 @@
 // Flutter imports:
-import 'package:delivery_system/views/homes/home_page.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:delivery_system/views/homes/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,6 +22,17 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.black,
           elevation: 1,
           shadowColor: Colors.white,
+        ),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+          bodyText2: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+          ),
         ),
       ),
       home: RoutePage(),
