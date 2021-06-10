@@ -1,4 +1,4 @@
-import 'package:delivery_system/views/order_list_page.dart';
+import 'package:delivery_system/views/orders/order_list_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,11 +40,19 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
+  final List<String> _titles = [
+    'サンプル1',
+    'サンプル2',
+    '新規注文',
+    'サンプル3',
+    'サンプル4',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('新規注文'),
+        title: Text(_titles[_selectedIndex]),
       ),
       body: Row(
         children: [
