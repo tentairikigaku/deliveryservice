@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:delivery_system/commons/common_widget.dart';
 import 'package:delivery_system/views/models/menu.dart';
 import 'package:flutter/material.dart';
 
@@ -92,10 +93,24 @@ class OrderListPage extends HookWidget {
         height: MediaQuery.of(context).size.width * 0.8,
         child: Column(
           children: [
-            _header(order),
-            _detail(order),
-            _price(order),
+            Expanded(
+              child: Column(
+                children: [
+                  _header(order),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey[200],
+                  ),
+                  Expanded(
+                    child: _detail(order),
+                  ),
+                  _price(order),
+                ],
+              ),
+            ),
+            hSpacer(50),
             _button(),
+            hSpacer(50),
           ],
         ),
       ),
@@ -103,42 +118,97 @@ class OrderListPage extends HookWidget {
   }
 
   Widget _header(Order order) {
-    return Row(
-      children: [
-        Text(order.number.toString()),
-        Text(order.name),
-        Column(
-          children: [
-            Text('14:00'),
-            Text('オーダー${order.number}'),
-          ],
-        ),
-        GFButton(
-          color: Colors.grey,
-          icon: Icon(
-            Icons.phone,
-            color: Colors.white,
+    return SizedBox(
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              wSpacer(50),
+              Text(
+                order.number.toString(),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              wSpacer(50),
+              Text(
+                order.name,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ],
           ),
-          text: 'ヘルプ',
-          onPressed: () => print,
-        ),
-      ],
+          Row(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('14:00'),
+                  Text('オーダー${order.number}'),
+                ],
+              ),
+              wSpacer(50),
+              GFButton(
+                color: Colors.grey,
+                icon: Icon(
+                  Icons.phone,
+                  color: Colors.white,
+                ),
+                text: 'ヘルプ',
+                onPressed: () => print,
+              ),
+              wSpacer(50),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _detail(Order order) {
     List<Widget> _list = order.menus
         .map(
-          (menu) => Row(
-            children: [
-              Text(menu.name),
-              Text(menu.price.toString()),
-              Text(menu.quantity.toString()),
-            ],
+          (menu) => SizedBox(
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    wSpacer(50),
+                    Text(
+                      menu.quantity.toString(),
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    wSpacer(50),
+                    Text(
+                      menu.name,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      (menu.price * menu.quantity).toString(),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    wSpacer(50),
+                  ],
+                )
+              ],
+            ),
           ),
         )
         .toList();
-    return Row(
+    return Column(
       children: _list,
     );
   }
@@ -154,13 +224,15 @@ class OrderListPage extends HookWidget {
             Text('合計'),
           ],
         ),
+        wSpacer(30),
         Column(
           children: [
-            Text('1000'),
-            Text('100'),
-            Text('1100'),
+            Text(order.subtotal.toString()),
+            Text(order.tax.toString()),
+            Text((order.subtotal + order.tax).toString()),
           ],
         ),
+        wSpacer(50),
       ],
     );
   }

@@ -27,11 +27,11 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 16,
+            fontSize: 30,
           ),
           bodyText2: TextStyle(
             color: Colors.black,
-            fontSize: 16,
+            fontSize: 20,
           ),
         ),
       ),
