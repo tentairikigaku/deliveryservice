@@ -85,6 +85,13 @@ class OrderListPage extends HookWidget {
     );
   }
 
+  Future<void> _showHelpInfo(Order order, BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (_) => helpDialog(order, context),
+    );
+  }
+
   Dialog detailDialog(Order order, BuildContext context) {
     return Dialog(
       backgroundColor: Colors.white,
@@ -96,7 +103,7 @@ class OrderListPage extends HookWidget {
             Expanded(
               child: Column(
                 children: [
-                  _header(order),
+                  _header(order, context),
                   Divider(
                     thickness: 1,
                     color: Colors.grey[200],
@@ -117,7 +124,20 @@ class OrderListPage extends HookWidget {
     );
   }
 
-  Widget _header(Order order) {
+  Dialog helpDialog(Order order, BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.white,
+      child: SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(
+          child: order == order1 ? Text('03-9876-5432') : Text('03-1234-5678'),
+        ),
+      ),
+    );
+  }
+
+  Widget _header(Order order, BuildContext context) {
     return SizedBox(
       height: 100,
       child: Row(
@@ -158,7 +178,7 @@ class OrderListPage extends HookWidget {
                   color: Colors.white,
                 ),
                 text: 'ヘルプ',
-                onPressed: () => print,
+                onPressed: () async => _showHelpInfo(order, context),
               ),
               wSpacer(50),
             ],
