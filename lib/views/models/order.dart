@@ -16,6 +16,7 @@ class Order {
     this.status,
     this.subtotal,
     this.tax,
+    this.arrivalTime,
   );
   int number;
   String name;
@@ -24,4 +25,5 @@ class Order {
   Status status;
   int subtotal;
   int tax;
+  DateTime arrivalTime;
 }

@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:delivery_system/commons/color_code.dart';
 import 'package:delivery_system/commons/common_widget.dart';
 import 'package:delivery_system/views/models/menu.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ import 'package:delivery_system/views/models/order.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class OrderListPage extends HookWidget {
-  final order1 = Order(
+  var order1 = Order(
     1,
     '吉田 拓磨様',
     'Uber Eats',
@@ -20,9 +21,10 @@ class OrderListPage extends HookWidget {
     Status.cooking,
     200,
     20,
+      DateTime(2021, 6, 19, 12, 10),
   );
 
-  final order2 = Order(
+  var order2 = Order(
     2,
     '伊藤 絵里様',
     '出前館',
@@ -30,6 +32,18 @@ class OrderListPage extends HookWidget {
     Status.unchecked,
     500,
     50,
+    DateTime(2021, 6, 19, 13, 00),
+  );
+
+  final order3 = Order(
+    3,
+    '佐藤　太郎様',
+    '出前館',
+    [Menu('チーズバーガー', 2, 200), Menu('コーラ', 1, 100)],
+    Status.unchecked,
+    500,
+    50,
+    DateTime(2021, 6, 19, 13, 11),
   );
 
   Widget _orderCard({
@@ -41,21 +55,33 @@ class OrderListPage extends HookWidget {
       child: InkWell(
         onTap: () async => _showDetail(order, context),
         child: Card(
-          color:
-              order.status == Status.unchecked ? Colors.red[200] : Colors.white,
+          color: (() {
+            if (order.status == Status.unchecked) {
+              return Colors.red[200];
+            }
+            else if (order.status == Status.canceled){
+              return Colors.grey;
+            } else {
+              return Colors.white;
+            }
+          })(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListTile(
               title: Row(
                 children: [
+                  setDS(order.compName),
+                  SizedBox(
+                    width: 50,
+                  ),
                   Text(
-                    order.number.toString(),
+                    '注文番号 '+order.number.toString(),
                     style: TextStyle(
                       color: Colors.black,
                     ),
                   ),
                   SizedBox(
-                    width: 100,
+                    width: 20,
                   ),
                   Text(
                     order.name,
@@ -63,20 +89,60 @@ class OrderListPage extends HookWidget {
                       color: Colors.black,
                     ),
                   ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text('合計金額　'+
+                    order.subtotal.toString(),
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+//                  Text(
+  //                    "14:00"
+//                  order.arrivalTime.hour.toString()+":"+order.arrivalTime.minute.toString()
+    //              )
                 ],
               ),
-              trailing: Text(
-                order.compName,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
+              trailing:  Icon(Icons.arrow_drop_down_circle),
             ),
           ),
         ),
       ),
     );
   }
+
+  Widget setDS(String str) {
+    var bgColorCode=
+    (() {
+      switch (str) {
+        case 'Uber Eats':
+          return HexColor('e83435');
+        case '出前館':
+          return HexColor('00c167');
+        default :
+          return HexColor('000000');
+      }
+    })();
+    return Container(
+      padding: const EdgeInsets.all(5.0),
+      width: 100,
+      decoration: BoxDecoration(
+        color: bgColorCode,
+        border: Border.all(
+            color: bgColorCode),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Container(
+        child: Text(str,textAlign: TextAlign.center,style:TextStyle(color: HexColor('FFFFFF'), ),
+        ),
+      ),
+    );
+  }
+
 
   Future<void> _showDetail(Order order, BuildContext context) async {
     return showDialog(
@@ -89,6 +155,13 @@ class OrderListPage extends HookWidget {
     return showDialog(
       context: context,
       builder: (_) => helpDialog(order, context),
+    );
+  }
+
+  Future<void> _showChOrderFirstStatus(Order order, BuildContext context, String  ar) async {
+    return showDialog(
+      context: context,
+      builder: (_) => AcceptRejectDialog(order, context,ar),
     );
   }
 
@@ -116,9 +189,23 @@ class OrderListPage extends HookWidget {
               ),
             ),
             hSpacer(50),
-            _button(),
+            _buttonAccepted(order,context),
+            _buttonRejected(order,context),
             hSpacer(50),
           ],
+        ),
+      ),
+    );
+  }
+
+  Dialog AcceptRejectDialog(Order order, BuildContext context, String ar) {
+    return Dialog(
+      backgroundColor: Colors.white,
+      child: SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(
+          child: ar == "Accepted" ? Text('受注しました') : Text('キャンセルしました'),
         ),
       ),
     );
@@ -145,6 +232,13 @@ class OrderListPage extends HookWidget {
         children: [
           Row(
             children: [
+              wSpacer(50),
+              Text(
+                order.compName.toString(),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
               wSpacer(50),
               Text(
                 order.number.toString(),
@@ -257,19 +351,31 @@ class OrderListPage extends HookWidget {
     );
   }
 
-  Widget _button() {
+  Widget _buttonAccepted(Order order, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 100),
       child: GFButton(
-        text: 'サンプルボタン',
+        text: '受注',
         size: GFSize.LARGE,
         color: GFColors.DARK,
         blockButton: true,
-        onPressed: () => print('tapped'),
+        onPressed: () async => _showChOrderFirstStatus(order, context,"Accepted")
       ),
     );
   }
 
+  Widget _buttonRejected(Order order, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 100),
+      child: GFButton(
+        text: 'キャンセル',
+        size: GFSize.LARGE,
+        color: GFColors.DARK,
+        blockButton: true,
+          onPressed: () async => _showChOrderFirstStatus(order, context,"Rejected")
+      ),
+    );
+  }
   String strStatus(Status status) {
     switch (status) {
       case Status.unchecked:
@@ -287,7 +393,17 @@ class OrderListPage extends HookWidget {
     return Flexible(
       flex: 1,
       child: Card(
-        color: status == Status.unchecked ? Colors.red[200] : Colors.white,
+        color: (() {
+          if (status == Status.unchecked) {
+            return Colors.red[200];
+          }
+          else if (status == Status.canceled){
+            return Colors.grey;
+          } else {
+            return Colors.white;
+          }
+        })(),
+//        color: status == Status.unchecked ? Colors.red[200] : Colors.white,
         child: ListTile(
           title: Center(
             child: Text(
@@ -324,6 +440,15 @@ class OrderListPage extends HookWidget {
             children: [
               _orderCard(
                 order: order2,
+                context: context,
+              ),
+              _statusCard(status: Status.unchecked),
+            ],
+          ),
+          Row(
+            children: [
+              _orderCard(
+                order: order3,
                 context: context,
               ),
               _statusCard(status: Status.unchecked),

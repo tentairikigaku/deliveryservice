@@ -53,7 +53,8 @@ class MyApp extends StatelessWidget {
           suffixStyle: TextStyle(
             color: Colors.red,
           ),
-          fillColor: Colors.grey[700],
+//          fillColor: Colors.grey[700],
+          fillColor: Colors.white,
           filled: true,
         ),
       ),
