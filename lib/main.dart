@@ -1,23 +1,23 @@
 // Flutter imports:
-import 'package:delivery_system/views/logins/login_page.dart';
-import 'package:flutter/material.dart';
-
 // Project imports:
 import 'package:delivery_system/views/homes/home_page.dart';
+import 'package:delivery_system/views/logins/login_page.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
           brightness: Brightness.dark,
           backgroundColor: Colors.black,
@@ -28,11 +28,11 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 30,
+            fontSize: 14,
           ),
           bodyText2: TextStyle(
             color: Colors.black,
-            fontSize: 20,
+            fontSize: 14,
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
@@ -69,20 +69,6 @@ class RoutePage extends StatefulWidget {
 }
 
 class _RoutePageState extends State<RoutePage> {
-  Widget navButton({required String title, dynamic nav}) {
-    return SizedBox(
-      width: 500,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          primary: Colors.white,
-          backgroundColor: Colors.grey[900],
-        ),
-        onPressed: null,
-        child: Text(title),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,6 +110,20 @@ class _RoutePageState extends State<RoutePage> {
             navButton(title: '注文詳細'),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget navButton({required String title, dynamic nav}) {
+    return SizedBox(
+      width: 500,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.white,
+          backgroundColor: Colors.grey[900],
+        ),
+        onPressed: null,
+        child: Text(title),
       ),
     );
   }

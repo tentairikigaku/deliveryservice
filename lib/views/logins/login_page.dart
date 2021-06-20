@@ -1,4 +1,5 @@
 import 'package:delivery_system/commons/common_widget.dart';
+import 'package:delivery_system/commons/theme.dart';
 import 'package:delivery_system/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -29,129 +30,140 @@ Future<void> showOtherDialog(BuildContext context, String str) async {
 
 Widget _otherArea(BuildContext context) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
-      wSpacer(300),
-      _otherContent(context, "利用規約"),
-      wSpacer(30),
-      _otherContent(context, "プライバシーポリシー"),
+      const Expanded(
+        child: Text(
+          '@cookpy',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
+        ),
+      ),
+      _otherContent(context, '利用規約'),
+      _otherContent(context, 'プライバシーポリシー'),
     ],
   );
 }
 
 Widget _otherContent(BuildContext context, String str) {
   return Container(
-      child: GFButton(
-    color: Colors.grey,
-    text: str,
-    onPressed: () async => showOtherDialog(context, str),
-  ));
+    child: GFButton(
+      textStyle: greyText(),
+      color: Colors.transparent,
+      text: str,
+      onPressed: () async => showOtherDialog(context, str),
+    ),
+  );
 }
 
 class LoginPage extends HookWidget {
   final emailCont = TextEditingController();
-
   final passwordCont = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('ログイン'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    hSpacer(120),
-                    Assets.images.cookpyLogo.image(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 280),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  hSpacer(60),
+                  Center(
+                    child: Assets.images.cookpyLogo.image(
                       width: 220,
                     ),
-                    Assets.images.orders.image(
+                  ),
+                  Center(
+                    child: Assets.images.orders.image(
                       width: 220,
                     ),
-                    hSpacer(20),
-                    Text(
-                      "メールアドレス",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: HexColor('#4b4b4b'),
-                          fontWeight: FontWeight.bold),
+                  ),
+                  hSpacer(20),
+                  Text(
+                    'メールアドレス',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: HexColor('#4b4b4b'),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
-                    hSpacer(2),
-                    SizedBox(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: emailCont,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(width: 0),
-                          ),
+                  ),
+                  hSpacer(2),
+                  SizedBox(
+                    height: 40,
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: emailCont,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(width: 0),
                         ),
                       ),
                     ),
-                    hSpacer(5),
-                    Text(
-                      'パスワード',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: HexColor('#4b4b4b'),
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  hSpacer(20),
+                  Text(
+                    'パスワード',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: HexColor('#4b4b4b'),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
-                    SizedBox(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: passwordCont,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(width: 0),
-                          ),
-//                    hintText: 'パスワード',
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: passwordCont,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(width: 0),
                         ),
                       ),
                     ),
-                    hSpacer(20),
-                    SizedBox(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: GFButton(
-                        text: 'ログイン',
-                        textColor: HexColor('#725b00'),
-                        color: HexColor('#ffcd0d'),
-                        padding: EdgeInsets.all(0),
-                        onPressed: () => print('fdfd'),
-                      ),
+                  ),
+                  hSpacer(20),
+                  SizedBox(
+                    height: 40,
+                    width: double.infinity,
+                    child: GFButton(
+                      text: 'ログイン',
+                      size: GFSize.LARGE,
+                      textColor: HexColor('#725b00'),
+                      color: HexColor('#ffcd0d'),
+                      padding: EdgeInsets.all(0),
+                      onPressed: () => print('fdfd'),
                     ),
-                    hSpacer(30),
-                    Text('パスワードお忘れの場合はこちら'),
-                    hSpacer(30),
-                    Text(
-                      "@cookpy",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    hSpacer(50),
-                    _otherArea(context),
-                  ],
-                ),
+                  ),
+                  hSpacer(20),
+                  const Center(
+                    child: Text('パスワードお忘れの場合はこちら'),
+                  ),
+                  hSpacer(20),
+                  _otherArea(context),
+                ],
               ),
-              Assets.images.group8.image(),
-            ],
-          ),
+            ),
+            Expanded(
+              child: Assets.images.group8.image(
+                fit: BoxFit.contain,
+              ),
+            ),
+          ],
         ),
       ),
     );
