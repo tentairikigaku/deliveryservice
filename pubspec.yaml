@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.17.0
+  flutter_local_notifications: ^6.0.0
   font_awesome_flutter: ^9.1.0
   getwidget: ^2.0.2
   hexcolor: ^2.0.4

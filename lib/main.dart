@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
             fontSize: 14,
           ),
           bodyText2: TextStyle(
-            color: Colors.black,
+            color: Colors.grey[900],
             fontSize: 14,
           ),
         ),

@@ -59,65 +59,74 @@ class OrderListPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 20,
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showNotification(context),
+        backgroundColor: Colors.amber,
+        child: Icon(
+          Icons.notification_add_outlined,
+        ),
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(Icons.access_time),
-              wSpacer(20),
-              Text(
-                'うまもんや Umamonya',
-                style: exLargeText,
-              ),
-              Expanded(
-                child: SizedBox.shrink(),
-              ),
-              Text(
-                '2021年8月30日',
-                style: exLargeText,
-              ),
-              IconButton(
-                onPressed: () => print(true),
-                icon: Icon(
-                  Icons.arrow_drop_down_circle,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 30,
+          vertical: 20,
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Icon(Icons.access_time),
+                wSpacer(20),
+                Text(
+                  'うまもんや Umamonya',
+                  style: exLargeText,
                 ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              _orderCard(
-                order: order1,
-                context: context,
-              ),
-              _statusCard(status: Status.cooking),
-            ],
-          ),
-          Row(
-            children: [
-              _orderCard(
-                order: order2,
-                context: context,
-              ),
-              _statusCard(status: Status.unchecked),
-            ],
-          ),
-          Row(
-            children: [
-              _orderCard(
-                order: order3,
-                context: context,
-              ),
-              _statusCard(status: Status.unchecked),
-            ],
-          ),
-        ],
+                Expanded(
+                  child: SizedBox.shrink(),
+                ),
+                Text(
+                  '2021年8月30日',
+                  style: exLargeText,
+                ),
+                IconButton(
+                  onPressed: () => print(true),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                _orderCard(
+                  order: order1,
+                  context: context,
+                ),
+                _statusCard(status: Status.cooking),
+              ],
+            ),
+            Row(
+              children: [
+                _orderCard(
+                  order: order2,
+                  context: context,
+                ),
+                _statusCard(status: Status.unchecked),
+              ],
+            ),
+            Row(
+              children: [
+                _orderCard(
+                  order: order3,
+                  context: context,
+                ),
+                _statusCard(status: Status.unchecked),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -163,6 +172,54 @@ class OrderListPage extends HookWidget {
         width: 200,
         child: Center(
           child: order == order1 ? Text('03-9876-5432') : Text('03-1234-5678'),
+        ),
+      ),
+    );
+  }
+
+  Dialog newOrderDialog(BuildContext context) {
+    return Dialog(
+      insetPadding: EdgeInsets.all(0),
+      backgroundColor: Colors.amber.withOpacity(0.3),
+      child: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Center(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 500,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.grey.withOpacity(0.8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '1',
+                      style: TextStyle(
+                        fontSize: 70,
+                        color: Colors.grey[900],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                hSpacer(20),
+                const Text(
+                  '新規注文が入りました！',
+                  style: exLargeText,
+                ),
+                const Text(
+                  '画面をタップして受付をしてください',
+                  style: exLargeText,
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -452,6 +509,13 @@ class OrderListPage extends HookWidget {
     return showDialog(
       context: context,
       builder: (_) => helpDialog(order, context),
+    );
+  }
+
+  Future<void> _showNotification(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (_) => newOrderDialog(context),
     );
   }
 
