@@ -3,12 +3,23 @@
 ///  FlutterGen
 /// *****************************************************
 
-// Flutter imports:
 import 'package:flutter/widgets.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  AssetGenImage get cookpyLogo =>
+      const AssetGenImage('assets/images/cookpy_logo.png');
+  AssetGenImage get group8 => const AssetGenImage('assets/images/group_8.png');
+  AssetGenImage get group82x =>
+      const AssetGenImage('assets/images/group_8_2x.png');
+  AssetGenImage get group83x =>
+      const AssetGenImage('assets/images/group_8_3x.png');
+  AssetGenImage get orders => const AssetGenImage('assets/images/orders.png');
+  AssetGenImage get orders2x =>
+      const AssetGenImage('assets/images/orders_2x.png');
+  AssetGenImage get orders3x =>
+      const AssetGenImage('assets/images/orders_3x.png');
   AssetGenImage get riceBall =>
       const AssetGenImage('assets/images/rice_ball.png');
 }
