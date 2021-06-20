@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:delivery_system/commons/common_widget.dart';
+import 'package:delivery_system/commons/theme.dart';
 import 'package:delivery_system/views/models/menu.dart';
 // Project imports:
 import 'package:delivery_system/views/models/order.dart';
@@ -34,7 +35,7 @@ class OrderListPage extends HookWidget {
 
   final order3 = Order(
     3,
-    '佐藤　太郎様',
+    '佐藤 太郎様',
     '出前館',
     [Menu('チーズバーガー', 2, 200), Menu('コーラ', 1, 100)],
     Status.unchecked,
@@ -65,6 +66,30 @@ class OrderListPage extends HookWidget {
       ),
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Icon(Icons.access_time),
+              wSpacer(20),
+              Text(
+                'うまもんや Umamonya',
+                style: exLargeText,
+              ),
+              Expanded(
+                child: SizedBox.shrink(),
+              ),
+              Text(
+                '2021年8月30日',
+                style: exLargeText,
+              ),
+              IconButton(
+                onPressed: () => print(true),
+                icon: Icon(
+                  Icons.arrow_drop_down_circle,
+                ),
+              )
+            ],
+          ),
           Row(
             children: [
               _orderCard(

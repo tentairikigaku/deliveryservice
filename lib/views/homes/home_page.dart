@@ -1,16 +1,15 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
-
 // Project imports:
 import 'package:delivery_system/views/orders/order_list_page.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(builder: (_) => HomePage());
   }
-
-  @override
-  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -60,12 +59,17 @@ class _HomePageState extends State<HomePage> {
       body: Row(
         children: [
           NavigationRail(
+            selectedIconTheme: IconThemeData(
+              color: Colors.amber,
+            ),
+            backgroundColor: Colors.grey[200],
+            elevation: 0.1,
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
               });
             },
-            labelType: NavigationRailLabelType.selected,
+            labelType: NavigationRailLabelType.none,
             destinations: const <NavigationRailDestination>[
               NavigationRailDestination(
                 icon: Icon(Icons.list),
@@ -89,11 +93,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
             selectedIndex: _selectedIndex,
-          ),
-          const VerticalDivider(
-            thickness: 1,
-            width: 1,
-            color: Colors.black,
           ),
           Expanded(
             child: _widgetOptions.elementAt(_selectedIndex),
