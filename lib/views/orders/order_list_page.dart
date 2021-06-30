@@ -9,6 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final expandedProvider = StateProvider(
+  (ref) => [
+    false,
+    false,
+    true,
+    false,
+  ],
+);
 
 class OrderListPage extends HookWidget {
   final order1 = Order(
@@ -60,6 +70,9 @@ class OrderListPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    var boolList = useProvider(expandedProvider).state;
+    print(boolList);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showNotification(context),
@@ -99,30 +112,23 @@ class OrderListPage extends HookWidget {
                 )
               ],
             ),
-            Row(
-              children: [
-                _orderCard(
-                  order: order1,
-                  context: context,
-                ),
-              ],
+            _orderCard(
+              order: order1,
+              context: context,
             ),
-            Row(
-              children: [
-                _orderCard(
-                  order: order2,
-                  context: context,
-                ),
-              ],
+            _orderCard(
+              order: order2,
+              context: context,
             ),
-            Row(
-              children: [
-                _orderCard(
-                  order: order3,
-                  context: context,
-                ),
-              ],
+            _orderCard(
+              order: order3,
+              context: context,
             ),
+            _hoge(
+              order: order3,
+              context: context,
+              boolList: boolList,
+            )
           ],
         ),
       ),
@@ -379,6 +385,35 @@ class OrderListPage extends HookWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _hoge({
+    required Order order,
+    required BuildContext context,
+    required List<bool> boolList,
+  }) {
+    return ExpansionPanelList(
+      expansionCallback: (index, isOpen) {
+        print(index);
+        print(isOpen);
+        boolList[index] = !isOpen;
+        context.read(expandedProvider).state = boolList;
+        // context.read(expandedProvider.notifier).state =
+      },
+      children: [
+        ExpansionPanel(
+          headerBuilder: (context, isOpen) {
+            return ListTile(
+              title: Text('hoe'),
+              trailing: SizedBox.shrink(),
+            );
+          },
+          body: Text('aaaaaaa'),
+          isExpanded: boolList[0],
+          canTapOnHeader: true,
+        ),
+      ],
     );
   }
 
