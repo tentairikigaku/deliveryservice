@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           shadowColor: Colors.white,
         ),
         textTheme: TextTheme(
-          bodyText1: TextStyle(
+          bodyText1: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 14,
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        inputDecorationTheme: InputDecorationTheme(
+        inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(
               Radius.circular(5),

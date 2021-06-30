@@ -15,26 +15,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
-    Text(
+    const Text(
       'Index 0',
       style: TextStyle(
         color: Colors.white,
       ),
     ),
-    Text(
+    const Text(
       'Index 1',
       style: TextStyle(
         color: Colors.white,
       ),
     ),
     OrderListPage(),
-    Text(
+    const Text(
       'Index 3',
       style: TextStyle(
         color: Colors.white,
       ),
     ),
-    Text(
+    const Text(
       'Index 4',
       style: TextStyle(
         color: Colors.white,
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       body: Row(
         children: [
           NavigationRail(
-            selectedIconTheme: IconThemeData(
+            selectedIconTheme: const IconThemeData(
               color: Colors.amber,
             ),
             backgroundColor: Colors.grey[200],
@@ -100,6 +100,5 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-    ;
   }
 }

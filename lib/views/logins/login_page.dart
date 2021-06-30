@@ -154,7 +154,7 @@ class LoginPage extends HookWidget {
                       size: GFSize.LARGE,
                       textColor: HexColor('#725b00'),
                       color: HexColor('#ffcd0d'),
-                      padding: EdgeInsets.all(0),
+                      padding: EdgeInsets.zero,
                       onPressed: () => print('fdfd'),
                     ),
                   ),
