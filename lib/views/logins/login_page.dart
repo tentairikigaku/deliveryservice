@@ -29,21 +29,24 @@ Future<void> showOtherDialog(BuildContext context, String str) async {
 }
 
 Widget _otherArea(BuildContext context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
-      const Expanded(
-        child: Text(
-          '@cookpy',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 280),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        const Expanded(
+          child: Text(
+            '@cookpy',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
+            ),
           ),
         ),
-      ),
-      _otherContent(context, '利用規約'),
-      _otherContent(context, 'プライバシーポリシー'),
-    ],
+        _otherContent(context, '利用規約'),
+        _otherContent(context, 'プライバシーポリシー'),
+      ],
+    ),
   );
 }
 
@@ -68,7 +71,7 @@ class LoginPage extends HookWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('ログイン'),
+          title: const Text('ログイン'),
         ),
         body: Column(
           children: [
@@ -77,7 +80,7 @@ class LoginPage extends HookWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  hSpacer(60),
+                  hSpacer(20),
                   Center(
                     child: Assets.images.cookpyLogo.image(
                       width: 220,
@@ -88,7 +91,7 @@ class LoginPage extends HookWidget {
                       width: 220,
                     ),
                   ),
-                  hSpacer(20),
+                  hSpacer(10),
                   Text(
                     'メールアドレス',
                     textAlign: TextAlign.left,
@@ -105,14 +108,17 @@ class LoginPage extends HookWidget {
                       keyboardType: TextInputType.emailAddress,
                       controller: emailCont,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                          left: 10,
+                          bottom: 10,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(width: 0),
                         ),
                       ),
                     ),
                   ),
-                  hSpacer(20),
+                  hSpacer(10),
                   Text(
                     'パスワード',
                     textAlign: TextAlign.left,
@@ -125,18 +131,21 @@ class LoginPage extends HookWidget {
                   SizedBox(
                     height: 40,
                     child: TextFormField(
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.visiblePassword,
                       controller: passwordCont,
                       obscureText: true,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                          left: 10,
+                          bottom: 10,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(width: 0),
                         ),
                       ),
                     ),
                   ),
-                  hSpacer(20),
+                  hSpacer(10),
                   SizedBox(
                     height: 40,
                     width: double.infinity,
@@ -149,19 +158,24 @@ class LoginPage extends HookWidget {
                       onPressed: () => print('fdfd'),
                     ),
                   ),
-                  hSpacer(20),
+                  hSpacer(10),
                   const Center(
                     child: Text('パスワードお忘れの場合はこちら'),
                   ),
-                  hSpacer(20),
-                  _otherArea(context),
+                  hSpacer(10),
                 ],
               ),
             ),
-            Expanded(
-              child: Assets.images.group8.image(
-                fit: BoxFit.contain,
-              ),
+            Stack(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Assets.images.group8.image(
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                _otherArea(context),
+              ],
             ),
           ],
         ),
