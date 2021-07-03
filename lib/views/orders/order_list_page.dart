@@ -4,6 +4,7 @@ import 'package:delivery_system/commons/theme.dart';
 import 'package:delivery_system/views/models/menu.dart';
 // Project imports:
 import 'package:delivery_system/views/models/order.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -393,27 +394,121 @@ class OrderListPage extends HookWidget {
     required BuildContext context,
     required List<bool> boolList,
   }) {
-    return ExpansionPanelList(
-      expansionCallback: (index, isOpen) {
-        print(index);
-        print(isOpen);
-        boolList[index] = !isOpen;
-        context.read(expandedProvider).state = boolList;
-        // context.read(expandedProvider.notifier).state =
-      },
-      children: [
-        ExpansionPanel(
-          headerBuilder: (context, isOpen) {
-            return ListTile(
-              title: Text('hoe'),
-              trailing: SizedBox.shrink(),
-            );
-          },
-          body: Text('aaaaaaa'),
-          isExpanded: boolList[0],
-          canTapOnHeader: true,
+    return ExpandablePanel(
+      theme: const ExpandableThemeData(
+        hasIcon: false,
+      ),
+      header: ExpandableButton(
+        child: Card(
+          color: (() {
+            if (order.status == Status.unchecked) {
+              return Colors.red[200];
+            } else if (order.status == Status.canceled) {
+              return Colors.grey;
+            } else {
+              return Colors.white;
+            }
+          })(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ListTile(
+              title: Row(
+                children: [
+                  setDS(order.compName),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Text(
+                    '注文番号 ${order.number}',
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    order.name,
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    '合計金額　${order.subtotal}',
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
+              trailing: const Icon(Icons.arrow_drop_down_circle),
+            ),
+          ),
         ),
-      ],
+      ),
+      collapsed: SizedBox.shrink(),
+      expanded: ExpandableButton(
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('#1. 醤油カツ丼 Soy Sauce Cutlet Rice Bowl'),
+                hSpacer(10),
+                Padding(
+                  padding: EdgeInsets.only(left: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            '※ 注記',
+                            style: greyText(),
+                          ),
+                          Text(
+                            '玉ねぎ抜き',
+                          ),
+                        ],
+                      ),
+                      Text('× 1')
+                    ],
+                  ),
+                ),
+                Text('#1. 醤油カツ丼 Soy Sauce Cutlet Rice Bowl'),
+                hSpacer(10),
+                Padding(
+                  padding: EdgeInsets.only(left: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            '※ 注記',
+                            style: greyText(),
+                          ),
+                          Text(
+                            '玉ねぎ抜き',
+                          ),
+                        ],
+                      ),
+                      Text('× 1')
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
