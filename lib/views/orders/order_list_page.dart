@@ -31,6 +31,7 @@ class OrderListPage extends HookWidget {
     200,
     20,
     DateTime(2021, 6, 19, 12, 10),
+    "なし",
   );
 
   final order2 = Order(
@@ -42,6 +43,7 @@ class OrderListPage extends HookWidget {
     500,
     50,
     DateTime(2021, 6, 19, 13, 00),
+    "なし",
   );
 
   final order3 = Order(
@@ -53,6 +55,7 @@ class OrderListPage extends HookWidget {
     500,
     50,
     DateTime(2021, 6, 19, 13, 11),
+    "なし",
   );
 
   Dialog acpOrRjcDialog(Order order, BuildContext context, String ar) {
@@ -159,6 +162,9 @@ class OrderListPage extends HookWidget {
                 ],
               ),
             ),
+            Text("特記事項"),
+//                 　Text（ order.specialNotes.isEmpty ? 'なし' : order.specialNotes）,
+            Text("なし"),
             hSpacer(50),
             _buttonAccepted(order, context),
             _buttonRejected(order, context),
@@ -253,7 +259,74 @@ class OrderListPage extends HookWidget {
           str,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: HexColor('FFFFFF'),
+            color: HexColor('#FFFFFF'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget setDSwStatus(String str) {
+    final bgColorCode = (() {
+      switch (str) {
+        case 'Uber Eats':
+          return HexColor('#e83435');
+        case '出前館':
+          return HexColor('#00c167');
+        default:
+          return HexColor('#000000');
+      }
+    })();
+    return Container(
+      padding: const EdgeInsets.all(5),
+      width: 100,
+      decoration: BoxDecoration(
+        color: bgColorCode,
+        border: Border.all(color: bgColorCode),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+        ),
+      ),
+      child: Container(
+        child: Text(
+          str,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: HexColor('#FFFFFF'),
+          ),
+        ),
+      ),
+    );
+  }
+  Widget setDSPStatus(Status status) {
+    final str = (() {
+      switch (status) {
+        case Status.canceled:
+          return "キャンセル";
+        case Status.cooking:
+          return "調理中";
+        default:
+          return "受付中";
+      }
+    })();
+    return Container(
+      padding: const EdgeInsets.all(5),
+      width: 100,
+      decoration: BoxDecoration(
+        color: HexColor("#eeeeee"),
+        border: Border.all(color: HexColor("#eeeeee")),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+      ),
+      child: Container(
+        child: Text(
+          str,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: HexColor('#000000'),
           ),
         ),
       ),
@@ -285,7 +358,6 @@ class OrderListPage extends HookWidget {
               _showChOrderFirstStatus(order, context, 'Rejected')),
     );
   }
-
   Widget _detail(Order order) {
     final List<Widget> _list = order.menus
         .map(
@@ -298,9 +370,10 @@ class OrderListPage extends HookWidget {
                   children: [
                     wSpacer(50),
                     Text(
-                      menu.quantity.toString(),
+                      "#"+menu.quantity.toString()+".",
                       style: const TextStyle(
                         fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     wSpacer(50),
@@ -308,6 +381,7 @@ class OrderListPage extends HookWidget {
                       menu.name,
                       style: const TextStyle(
                         fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -315,7 +389,7 @@ class OrderListPage extends HookWidget {
                 Row(
                   children: [
                     Text(
-                      (menu.price * menu.quantity).toString(),
+                      "X"+menu.quantity.toString(),
                       style: const TextStyle(fontSize: 20),
                     ),
                     wSpacer(50),
@@ -340,28 +414,27 @@ class OrderListPage extends HookWidget {
           Row(
             children: [
               wSpacer(50),
+              setDSwStatus(order.compName),
+              setDSPStatus(order.status),
+              wSpacer(50),
               Text(
-                order.compName.toString(),
+                "注文番号  "+order.number.toString(),
                 style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
               wSpacer(50),
-              Text(
-                order.number.toString(),
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              wSpacer(50),
+              /*
               Text(
                 order.name,
                 style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
+*/
             ],
           ),
+          /*
           Row(
             children: [
               Column(
@@ -384,6 +457,7 @@ class OrderListPage extends HookWidget {
               wSpacer(50),
             ],
           ),
+          */
         ],
       ),
     );
