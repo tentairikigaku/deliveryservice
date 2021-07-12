@@ -8,7 +8,7 @@ if (localPropertiesFile.exists()) {
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -41,6 +41,7 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -61,6 +62,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.2.1')
 //    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Import the Firebase BoM
     //implementation platform('com.google.firebase:firebase-bom:28.0.1')
@@ -77,3 +79,7 @@ dependencies {
 
 }
 //apply plugin: 'com.google.gms.google-services'
+//wrapper {
+//    gradleVersion = '7.1.1'
+//}
+task wrapper(type: Wrapper){ gradleVersion = '7.1.1' }

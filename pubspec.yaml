@@ -18,6 +18,12 @@ dependencies:
   hexcolor: ^2.0.4
   hooks_riverpod: ^0.14.0+4
   import_sorter: ^4.6.0
+  firebase_core: ^0.4.0+9
+  firebase_storage:
+  firebase_analytics: ^5.0.2
+  firebase_auth: ^0.14.0+5
+  cloud_firestore: ^0.12.9+5
+  firebase_core_web: ^0.1.1+2
 
 dev_dependencies:
   flutter_test:

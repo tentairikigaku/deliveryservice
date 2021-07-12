@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1038793319993",
+    "project_id": "order-dev-639f4",
+    "storage_bucket": "order-dev-639f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038793319993:android:a0d3ba4686c1a1420a8fe8",
+        "android_client_info": {
+          "package_name": "com.cookpy.orders"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038793319993-ucksq7qq5kqnkbulqqc54b1c78i2m15r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQpfcOuJlcWd3v7R91hTcFLyz7KBasy5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038793319993-ucksq7qq5kqnkbulqqc54b1c78i2m15r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038793319993:android:4abad68692fc203b0a8fe8",
+        "android_client_info": {
+          "package_name": "com.cookpy.unified_delivery_system_flutter_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038793319993-ucksq7qq5kqnkbulqqc54b1c78i2m15r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQpfcOuJlcWd3v7R91hTcFLyz7KBasy5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038793319993-ucksq7qq5kqnkbulqqc54b1c78i2m15r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
